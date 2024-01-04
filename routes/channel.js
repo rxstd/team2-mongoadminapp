@@ -1,9 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const db = require("../models/index");
-
-const { Op } = require("sequelize");
+const Channel = require("../schemas/channel"); //MongoDB Channel Schema
 
 /* 
 -routes\channel.js - 채팅방 정보관리 라우팅 기능 제공
@@ -16,7 +14,7 @@ const { Op } = require("sequelize");
 */
 
 router.get("/list", async function (req, res, next) {
-  let result = await db.Channel.findAll();
+  let result = await Channel.find().sort("-reg_date");
 
   console.log(result);
 
@@ -34,25 +32,23 @@ router.post("/list", async function (req, res, next) {
   };
 
   // LIKE Search
-  let result = await db.Channel;
+  const schClause = {};
 
-  where = {};
-
-  if (schOption.channel_state_code != "") {
-    where.channel_state_code = schOption.channel_state_code;
+  if (schOption.channel_state_code) {
+    schClause.channel_state_code = schOption.channel_state_code;
   }
 
-  if (schOption.channel_name != "") {
-    where.channel_name = { [Op.like]: "%" + schOption.channel_name + "%" };
+  if (schOption.channel_name) {
+    schClause.channel_name = { $regex: schOption.channel_name, $options: "i" };
   }
 
-  if (schOption.channel_desc != "") {
-    where.channel_desc = { [Op.like]: "%" + schOption.channel_desc + "%" };
+  if (schOption.channel_desc) {
+    schClause.channel_desc = { $regex: schOption.channel_desc, $options: "i" };
   }
 
-  result = await db.Channel.findAll({
-    where: where,
-  });
+  let result = await Channel.find(schClause).sort("-reg_date");
+
+  console.log(result);
 
   res.render("channel/list", {
     channelList: result,
@@ -79,36 +75,51 @@ router.post("/create", async function (req, res, next) {
     edit_member_id: 1,
   };
 
-  await db.Channel.create(createData);
+  console.log("createData", createData);
 
+  await Channel.create(createData);
+
+  //res.json(createData);
   res.redirect("/channel/list");
 });
 
 router.get("/modify/:cid", async function (req, res, next) {
-  let result = await db.Channel.findOne({
-    where: { channel_id: req.params.cid },
-  });
+  try {
+    let result = await Channel.findOne({
+      _id: req.params.cid,
+    });
 
-  res.render("channel/modify", { channel: result });
+    console.log(result);
+
+    res.render("channel/modify", { channel: result });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/channel/list");
+  }
 });
 
 router.post("/modify/:cid", async function (req, res, next) {
-  const modifiedData = {
-    channel_state_code: req.body.channel_state_code,
-    category_code: req.body.category_code,
-    channel_name: req.body.channel_name,
-    user_limit: req.body.user_limit,
-    channel_img_path: req.body.channel_img_path,
-    channel_desc: req.body.channel_desc,
-  };
+  try {
+    const modifiedData = {
+      channel_state_code: req.body.channel_state_code,
+      category_code: req.body.category_code,
+      channel_name: req.body.channel_name,
+      user_limit: req.body.user_limit,
+      channel_img_path: req.body.channel_img_path,
+      channel_desc: req.body.channel_desc,
+    };
 
-  const where = {
-    channel_id: req.params.cid,
-  };
+    const where = {
+      _id: req.params.cid,
+    };
 
-  await db.Channel.update(modifiedData, { where: where });
+    await Channel.updateOne(where, modifiedData);
 
-  res.redirect("/channel/list");
+    res.redirect("/channel/list");
+  } catch (err) {
+    console.error(err);
+    res.send("Error!");
+  }
 });
 
 router.get("/delete/:cid", async function (req, res, next) {

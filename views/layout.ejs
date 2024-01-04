@@ -133,17 +133,20 @@
     <script>
       $(document).ready(function () {
         var path = String(window.location.pathname);
+        path = path.split("/")[1];
         var menu = path.replace("/", "").replace("/", "").replace("/", "");
 
-        var menu_id = "#menu_" + menu;
+        //alert(menu);
+
+        var menu_id = "#menu_" + menu + "list";
         $(menu_id).addClass("active");
       });
-      
-    $("#btnDelete").click(function(){
-    if(confirm("정말 삭제하시겠습니까?")){
-        location.href = "/admin/delete?aid=" + $("#adminId").val();
-    }
-    });
+
+      $("#btnDelete").click(function () {
+        if (confirm("정말 삭제하시겠습니까?")) {
+          location.href = "/admin/delete?aid=" + $("#adminId").val();
+        }
+      });
     </script>
     <%-script%>
   </body>

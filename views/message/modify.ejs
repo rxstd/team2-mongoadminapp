@@ -14,7 +14,7 @@ edit_date :: 메시지 수정 일시
 del_date :: 메시지 삭제 일시
 -->
 
-<form action="/message/modify/<%=message.channel_msg_id%>" method="post" id="articleForm">
+<form action="/message/modify/<%=message._id%>" method="post" id="articleForm">
   <div class="ibox-content m-b-sm border-bottom">
     <div class="row">
       <div class="col-sm-4">
@@ -70,7 +70,7 @@ del_date :: 메시지 삭제 일시
 <script>
   function deleteMessage() {
     if (confirm('정말 삭제하시겠습니까?')) {
-      location.href = '/message/delete/<%=message.channel_msg_id%>';
+      location.href = '/message/delete/<%=message._id%>';
     }
   }
 </script>
