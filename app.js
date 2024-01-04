@@ -5,35 +5,24 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var layout = require("express-ejs-layouts"); // 2023 - 12 - 19 express-ejs-layouts define
 
-var sequelize = require("./models/index").sequelize;
+const connect = require("./schemas/index");
+connect();
 
-// DB연결
-sequelize
-  .sync()
-  .then(() => {
-    console.log("DB 연결 성공");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
 var indexRouter = require("./routes/index");
-var gownRouter = require("./routes/gown");
-var evansRouter = require("./routes/evans");
-var welcomeRouter = require("./routes/welcome");
 
 // 2023 - 12 - 12 Admin Webpage Integration Start
-var adminRouter = require("./routes/admin"); // 작업자 - 추원혁
+//var adminRouter = require("./routes/admin");
+var memberRouter = require("./routes/member");
 
-var memberRouter = require("./routes/member"); // 작업자 - 한고운
-var articleRouter = require("./routes/article"); // 작업자 - 한고운
+//var articleRouter = require("./routes/article");
+//var channelRouter = require("./routes/channel");
+//var messageRouter = require("./routes/message");
 
-var channelRouter = require("./routes/channel"); // 작업자 - 이환영
-var messageRouter = require("./routes/message"); // 작업자 - 이환영
 var expressLayouts = require("express-ejs-layouts");
 const session = require("express-session"); //added packeages to use req.session variables
 
 var app = express(); //express run
-sequelize.sync();
+
 app.use(
   //added to use req.session variables
   session({
@@ -64,17 +53,13 @@ app.set("layout", "layout");
 app.set("layout extractScripts", true);
 // 2023 - 12 - 19 express-ejs-layouts define end
 
-// app.use("/welcome", welcomeRouter);
-// app.use("/gown", gownRouter);
-// app.use("/evans", evansRouter);
-
 // 2023 - 12 - 12 Admin Webpage Integration Start
 
-app.use("/admin", adminRouter); // 1차 작업자 - 추원혁 // 2차 작업자 - 이환영
-app.use("/member", memberRouter); // 1차 작업자 - 한고운 // 2차 작업자 - 한고운
-app.use("/article", articleRouter); // 1차 작업자 - 한고운 // 2차 작업자 - 추원혁
-app.use("/channel", channelRouter); // 1차 작업자 - 이환영 // 2차 작업자 - 추원혁
-app.use("/message", messageRouter); // 1차 작업자 - 이환영 // 2차 작업자 - 추원혁
+//app.use("/admin", adminRouter);
+app.use("/member", memberRouter);
+//app.use("/article", articleRouter);
+//app.use("/channel", channelRouter);
+//app.use("/message", messageRouter);
 
 // 2023 - 12 - 12 Admin Webpage Integration End
 
