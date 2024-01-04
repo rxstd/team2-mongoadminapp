@@ -81,8 +81,7 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">저장</button>
                 <a href="/article/list" class="btn btn-info">목록</a>
-                <a href="#" id="btnDelete" class="btn btn-danger">삭제</a>
-                <input type="hidden" id="articleId" value="<%=articles.article_id%>"/>
+                <a href="#" onclick="deleteData()" class="btn btn-danger">삭제</a>
             </div>
 
         </div>
@@ -90,12 +89,11 @@
 </div>
 
 <script>
-
-    $("#btnDelete").click(function(){
+    function deleteData() {
         if(confirm("해당 게시글을 삭제하시겠습니까?")){
             // 확인 팝업내 확인 버튼을 누르면 하기 코드가 실행
             // 취소를 투르면 하기 콛를 건너뜀 
-            location.href="/article/delete?aid="+$("#articleId").val();
+            location.href="/article/delete?aid=<%=articles.article_id%>";
         }
-    });
+    }
 </script>
