@@ -7,7 +7,7 @@ const connect = () => {
 
   //몽고DB연결정보를 설정합니다.
   mongoose.connect(
-    "mongodb://evans:qweqwe123@localhost:27017/admin",
+    "mongodb://welcome1:wjddlsdls110!@localhost:27017/admin",
     {
       dbName: "modu_chat",
     },
@@ -35,5 +35,6 @@ require("./member.js");
 
 //게시글 ODM모델 추가
 require("./article.js");
+require("./admin.js");
 
 module.exports = connect;

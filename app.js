@@ -11,10 +11,10 @@ connect();
 var indexRouter = require("./routes/index");
 
 // 2023 - 12 - 12 Admin Webpage Integration Start
-//var adminRouter = require("./routes/admin");
+var adminRouter = require("./routes/admin");
 var memberRouter = require("./routes/member");
 
-//var articleRouter = require("./routes/article");
+var articleRouter = require("./routes/article");
 //var channelRouter = require("./routes/channel");
 //var messageRouter = require("./routes/message");
 
@@ -55,9 +55,9 @@ app.set("layout extractScripts", true);
 
 // 2023 - 12 - 12 Admin Webpage Integration Start
 
-//app.use("/admin", adminRouter);
+app.use("/admin", adminRouter);
 app.use("/member", memberRouter);
-//app.use("/article", articleRouter);
+app.use("/article", articleRouter);
 //app.use("/channel", channelRouter);
 //app.use("/message", messageRouter);
 
