@@ -54,7 +54,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label">게시글유형</label>
-                        <select name="articleTypeCode" id="articleTypeCode" class="form-control">
+                        <select name="article_type_code" id="article_type_code" class="form-control">
                             <option value="0" <% if(articles.article_type_code == 0){%> selected<%} %> >일반 게시글</option>
                             <option value="1" <% if(articles.article_type_code == 1){%> selected<%} %> >고정 게시글</option>
                         </select>
@@ -63,7 +63,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="control-label">게시여부</label>
-                        <select name="isDisplayCode" id="isDisplayCode" class="form-control">
+                        <select name="is_display_code" id="is_display_code" class="form-control">
                             <option value="0" <% if(articles.is_display_code == 0){%> selected<%} %> >게시안함</option>
                             <option value="1" <% if(articles.is_display_code == 1){%> selected<%} %> >게시함</option>
                         </select>

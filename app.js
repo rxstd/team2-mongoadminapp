@@ -55,15 +55,9 @@ app.set("layout extractScripts", true);
 
 // 2023 - 12 - 12 Admin Webpage Integration Start
 
-<<<<<<< HEAD
-//app.use("/admin", adminRouter);
 app.use("/article", articleRouter);
-
-=======
 app.use("/admin", adminRouter);
->>>>>>> 7df7dc3bdf64d7ae0ae292abccd4bcce00023bc2
 app.use("/member", memberRouter);
-app.use("/article", articleRouter);
 app.use("/channel", channelRouter);
 app.use("/message", messageRouter);
 
