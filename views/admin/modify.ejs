@@ -1,7 +1,9 @@
+
+
             <!--우측 콘텐츠 헤더영역 -->
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>관리자 정보 수정</h2>
+                    <h2>관리자 정보수정</h2>
                     <ol class="breadcrumb">
                         <li>
                             <a href="/">Home></a>
@@ -9,9 +11,7 @@
                         <li>
                             <a>관리자 정보 수정></a>
                         </li>
-                        <li class="active">
-                            <strong>수정</strong>
-                        </li>
+                        
                     </ol>
                 </div>
                 <div class="col-lg-2">
@@ -21,94 +21,103 @@
 
             <!--우측 콘텐츠 영역 -->
             <div class="wrapper wrapper-content">
-                <div class="ibox-content m-b-sm border-bottom">
+                    <form action="/admin/modify/<%=admin.admin_member_id%>" method="post"id ="adminForm">
+                        <div class="ibox-content m-b-sm border-bottom">
 
-                <form action="/admin/modify/<%=admin.admin_member_id%>" method="post"id="adminForm">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">아이디</label>
-                                <input type="text" class="form-control"name="admin_id" value="<%=admin.admin_id%>">
+
+                            <div class="row">
+                                
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">관리자 아이디</label>
+                                        <input type="text" name="admin_id"class="form-control" value="<%=admin.admin_id%>">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">관리자 비밀번호</label>
+                                        <input type="password" name="admin_password"class="form-control"value="<%=admin.admin_password%>">
+                                    </div>
+                                </div>
+    
+                                
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">관리자 성명</label>
+                                        <input type="text" name="admin_name"class="form-control"value="<%=admin.admin_name%>">
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">암호</label>
-                                <input type="password" class="form-control"name="admin_password"value="<%=admin.admin_password%>">
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">소속회사 코드</label>
+                                        <input type="text" name="company_code" class="form-control"value="<%=admin.company_code%>">
+                                    </div>
+                                    </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">전화번호</label>
+                                        <input type="text" name="telephone"class="form-control"value="<%=admin.telephone%>">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">부서명</label>
+                                        <input type="text" name="dept_name"class="form-control"value="<%=admin.dept_name%>">
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
 
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">성명</label>
-                                <input type="text" class="form-control" name="admin_name"value="<%=admin.admin_name%>">
+                            <div class="row">         
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">사용여부 </label>
+                                        <select name="used_yn_code" class="form-control"value="<%=admin.used_yn_code%>">
+                                            <option value="0">일시중지</option>
+                                            <option value="1">사용중</option>
+                                            <option value="2">탈퇴</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                    <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">메일주소</label>
+                                        <input type="text" name="email" class="form-control"value="<%=admin.email%>">
+                                    </div>
+                                </div>
+                                
+                                
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label class="control-label">수정 일시</label>
+                                        <input type="text" class="form-control" name="edit_date" value="<%=admin.edit_date%>"readonly>
+                                        
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-
-                    </div>
-                    
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">메일주소</label>
-                                <input type="text" class="form-control" name="email"value="<%=admin.email%>">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">저장</button>
+                                <a href="/admin/list" class="btn btn-info">목록</a>
+                                <a href="#" onclick="deleteData()" class="btn btn-danger">삭제</a>
                             </div>
+
                         </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">회사코드</label>
-                                <input type="text" class="form-control"name="company_code"value="<%=admin.company_code%>">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">부서명</label>
-                                <input type="text" class="form-control" name="dept_name"value="<%=admin.dept_name%>">
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">전화번호</label>
-                                <input type="text" class="form-control" name="telephone"value="<%=admin.telephone%>">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">등록일시</label>
-                                <input type="text" class="form-control"name="reg_date" value="<%=admin.reg_date%>">
-                            </div>
-                        </div>
-                        
-
-
-
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">저장</button>
-                        <a href="/admin/list" class="btn btn-info">목록</a>
-                        <a href="#" id="btnDelete" class="btn btn-danger">삭제</a>
-                        <input type="hidden" value="<%=admin.admin_member_id%>" id="adminId"/>
-                    </div>
-
-                </div>
+                    </form>
             </div>
-            <script src="/js/jquery-3.1.1.min.js"></script>
-            <script src="/js/popper.min.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-            <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script>
-
-    $("#btnDelete").click(function(){
-    if(confirm("정말 삭제하시겠습니까?")){
-        location.href = "/admin/delete?aid=" + $("#adminId").val();
+    function deleteData(){
+    if(confirm ("정말로 삭제하시겠습니까?")){
+            //사용자가 confirm창의 확인 버튼을 누르면 true가 반환되기 때문에..
+            // 확인 버튼 클릭시 실행해야하는 기능 구현
+            location.href="/admin/delete?aid=<%=admin.admin_member_id%>"
+    } else {
+        alert("삭제를 취소했습니다.")
     }
-    });
+}
 </script>

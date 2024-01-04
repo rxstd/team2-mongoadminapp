@@ -8,6 +8,10 @@ const articleSchema = new Schema({
     type: String,
     required: true,
   },
+  board_type_code: {
+    type: Number,
+    required: true,
+  },
   article_type_code: {
     type: Number,
     required: true,
@@ -35,6 +39,14 @@ const articleSchema = new Schema({
   edit_member_id: {
     type: Number,
     required: false,
+  },
+  reg_member_id: {
+    type: Number,
+    required: false,
+  },
+  reg_date: {
+    type: Date,
+    default: Date.now,
   },
 });
 
