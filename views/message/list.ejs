@@ -1,0 +1,133 @@
+<style>
+  #dataTable {
+    font-size: 12px;
+    letter-spacing: -0.5px;
+  }
+</style>
+<form
+  action="/message/list"
+  method="POST"
+  onsubmit="return checkForm();"
+>
+  <div class="ibox-content m-b-sm border-bottom">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label" for="channel_id"
+            >채널 선택</label
+          >
+          <select name="channel_id" id="channel_id" class="form-control">
+              <option value="" <%= schOption.channel_id === '' ? 'selected' : '' %>>전체</option>
+              <% for (var i = 0; i < channelList.length; i++) { %>
+              <option value="<%= channelList[i].channel_id %>" <%= schOption.channel_id == channelList[i].channel_id ? 'selected' : '' %>><%= channelList[i].channel_name %></option>
+              <% } %>
+            </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label" for="msg_type_code"
+            >메시지타입 선택</label
+          >
+          <select name="msg_type_code" id="msg_type_code" class="form-control">
+              <option value="" <%= schOption.msg_type_code === '' ? 'selected' : '' %>>전체</option>
+              <option value="1" <%= schOption.msg_type_code === '1' ? 'selected' : '' %>>입장</option>
+              <option value="0" <%= schOption.msg_type_code === '0' ? 'selected' : '' %>>퇴장</option>
+              <option value="3" <%= schOption.msg_type_code === '3' ? 'selected' : '' %>>일반메시지</option>
+              <option value="4" <%= schOption.msg_type_code === '4' ? 'selected' : '' %>>파일메시지</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label" for="message">메시지 내용</label>
+          <input
+            type="text"
+            class="form-control"
+            name="message"
+            id="message"
+            value="<%= schOption.message %>"
+          />
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label" for="ip_address">발송 IP주소</label>
+          <input
+            type="text"
+            class="form-control"
+            name="ip_address"
+            id="ip_address"
+            value="<%= schOption.ip_address %>"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-info">조회</button>
+      <a href="/message/create" class="btn btn-danger"
+        >새 메시지 작성하기</a
+      >
+    </div>
+  </div>
+</form>
+<script>
+  function checkForm() {
+    return true;
+  }
+</script>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="table-responsive">
+          <table class="table table-hover" id="dataTable">
+            <thead>
+              <tr>
+                <th width="5%">순번</th>
+                <th width="7%">메시지 타입</th>
+                <th width="8%">채널 정보</th>
+                <th width="7%">발송자 닉네임</th>
+                <th width="30%">메시지 내용</th>
+                <th width="8%">발송 IP</th>
+                <th width="15%">등록 일시</th>
+              </tr>
+            </thead>
+            <tbody class="hoverTblBody" id="list_table">
+              <% if (messageList.length === 0) { %>
+              <tr>
+                <td colspan="7" class="text-center">조회된 데이터가 없습니다.</td>
+              </tr>
+              <% } else { %>
+              <% for (var i = 0; i < messageList.length; i++) { %>
+              <tr>
+                <td><b>#<%= messageList[i].channel_msg_id %></b></td>
+                <td>
+                  <% if (messageList[i].msg_type_code == '1') { %>
+                  <span class="label label-primary">입장</span>
+                  <% } else if (messageList[i].msg_type_code == '0') { %>
+                  <span class="label label-danger">퇴장</span>
+                  <% } else if (messageList[i].msg_type_code == '3') { %>
+                  <span class="label label-info">일반메시지</span>
+                  <% } else if (messageList[i].msg_type_code == '4') { %>
+                  <span class="label label-warning">파일메시지</span>
+                  <% } %>
+                </td>
+                <td>
+                  <a href="/channel/modify/<%=messageList[i].channel_id%>"><%= channelList.find(x => x.channel_id === messageList[i].channel_id).channel_name %></a>
+                </td>
+                <td><%= messageList[i].nick_name %></td>
+                <td><a href="/message/modify/<%=messageList[i].channel_msg_id%>"><%= messageList[i].message %></a></td>
+                <td><%= messageList[i].ip_address %></td>
+                <td><%= messageList[i].msg_date.toLocaleString() %></td>
+
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<form
+  action="/channel/list"
+  method="POST"
+  onsubmit="return checkForm();"
+>
+  <div class="ibox-content m-b-sm border-bottom">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_state_code"
+            >채널 상태</label
+          >
+          <select name="channel_state_code" id="channel_state_code" class="form-control">
+              <option value="" <%= schOption.channel_state_code === '' ? 'selected' : '' %>>전체</option>
+              <option value="0" <%= schOption.channel_state_code === '0' ? 'selected' : '' %>>사용안함</option>
+              <option value="1" <%= schOption.channel_state_code === '1' ? 'selected' : '' %>>사용중</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_name">채널 명</label>
+          <input
+            type="text"
+            class="form-control"
+            name="channel_name"
+            id="channel_name"
+            value="<%= schOption.channel_name %>"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_desc">채널 설명</label>
+          <input
+            type="text"
+            class="form-control"
+            name="channel_desc"
+            id="channel_desc"
+            value="<%= schOption.channel_desc %>"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-info">조회</button>
+      <a href="/channel/create" class="btn btn-danger"
+        >신규 채널 생성</a
+      >
+    </div>
+  </div>
+</form>
+<script>
+  function checkForm() {
+    if ($('#channel_name').val() === '') {
+      alert('채널명을 입력해주세요.');
+      $('#channel_name').focus();
+      return false;
+    }
+    return true;
+  }
+</script>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th width="5%">순번</th>
+                <th width="10%">채널 상태</th>
+                <th width="10%">카테고리</th>
+                <th width="20%">채널 명</th>
+                <th width="10%">사용자 제한 수</th>
+                <th width="25%">채널 이미지 경로</th>
+                <th width="25%">채널 설명</th>
+              </tr>
+            </thead>
+            <tbody class="hoverTblBody" id="list_table">
+              <% if (channelList.length === 0) { %>
+              <tr>
+                <td colspan="7" class="text-center">조회된 데이터가 없습니다.</td>
+              </tr>
+              <% } else { %>
+              <% for (var i = 0; i < channelList.length; i++) { %>
+              <tr>
+                <td><b>#<%= channelList[i].channel_id %></b></td>
+                <td>
+                  <% if (channelList[i].channel_state_code == '0') { %>
+                  <b class="badge badge-info">
+                    사용안함
+                  </b>
+                  <% } else if (channelList[i].channel_state_code == '1') { %>
+                  <b class="badge badge-danger">
+                    사용중
+                  </b>
+                  <% } %>
+                </td>
+                <td>
+                  <% if (channelList[i].category_code == '0') { %>
+                  카테고리 1
+                  <% } else if (channelList[i].category_code == '1') { %>
+                  카테고리 2
+                  <% } %>
+                </td>
+                <td>
+                  <a href="/channel/modify/<%= channelList[i].channel_id %>"><b><%= channelList[i].channel_name %></b></a>
+                </td>
+                <td><%= channelList[i].user_limit %> 명</td>
+                <td><%= channelList[i].channel_img_path %></td>
+                <td><%= channelList[i].channel_desc %></td>
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Login V3</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--===============================================================================================-->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/external/login/images/icons/favicon.ico"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/bootstrap/css/bootstrap.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/fonts/iconic/css/material-design-iconic-font.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/animate/animate.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/css-hamburgers/hamburgers.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/animsition/css/animsition.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/select2/select2.min.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/vendor/daterangepicker/daterangepicker.css"
+    />
+    <!--===============================================================================================-->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/css/util.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/external/login/css/main.css"
+    />
+    <!--===============================================================================================-->
+    <style>
+      .mainButton {
+        background: linear-gradient(to right bottom, #00c6ff, #0072ff);
+        /* Green */
+        border: none;
+        color: white;
+        padding: 12px;
+        width: calc(100% - 10px);
+
+        text-align: center;
+        text-decoration: none;
+        /* display: inline-block; */
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 3px;
+        transition: 0.3s all;
+      }
+
+      .mainButton:hover {
+        opacity: 0.8;
+        transition: 0.3s all;
+        transform: scale(1.05);
+        filter: brightness(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="limiter">
+      <div
+        class="container-login100"
+        style="background-image: url('/images/icon.png')"
+      >
+        <div class="wrap-login100">
+          <form
+            class="login100-form validate-form"
+            method="POST"
+            action="/login"
+          >
+            <span class="login100-form-logo">
+              <img
+                class="login-icon-image"
+                src="/images/icon.png"
+                style="width: 120px; height: 120px"
+              />
+              <!--i class="zmdi zmdi-landscape"></i-->
+            </span>
+
+            <span
+              class="login100-form-title p-b-34 p-t-27"
+              style="font-size: 24px"
+            >
+              <%= title %> 페이지에 오신것을 환영합니다.</span
+            >
+            <table style="width: 100%">
+              <tr>
+                <td colspan="3">
+                  <a href="/login"
+                    ><button class="mainButton" type="button">
+                      로그인 하기
+                    </button></a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a href="/evans">
+                    <button class="mainButton" type="button">
+                      추원혁의 소개
+                    </button>
+                  </a>
+                </td>
+                <td>
+                  <a href="/gown">
+                    <button class="mainButton" type="button">
+                      한고운의 소개
+                    </button>
+                  </a>
+                </td>
+                <td>
+                  <a href="/welcome">
+                    <button class="mainButton" type="button">
+                      이환영의 소개
+                    </button>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="/external/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/external/login/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/external/login/js/main.js"></script>
+  </body>
+</html>

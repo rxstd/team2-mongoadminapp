@@ -1,0 +1,117 @@
+<!--
+  channel_id :: 채널 아이디
+community_id :: 커뮤니티 아이디
+category_code :: 카테고리 코드
+channel_name :: 채널 명
+user_limit :: 사용자 제한 수
+channel_img_path :: 채널 이미지 경로
+channel_desc :: 채널 설명
+channel_state_code :: 채널 상태 코드
+reg_date :: 등록 일시
+reg_member_id :: 등록한 멤버 ID
+edit_date :: 수정 일시
+edit_member_id :: 수정한 멤버 ID
+-->
+
+<form
+  action="/channel/modify/<%= channel.channel_id %>"
+  method="post"
+  id="articleForm"
+>
+  <div class="ibox-content m-b-sm border-bottom">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_state_code"
+            >채널 상태</label
+          >
+          <select
+            name="channel_state_code"
+            id="channel_state_code"
+            class="form-control"
+          >
+            <option value="0">사용안함</option>
+            <option value="1">사용중</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="category_code">카테고리</label>
+          <select name="category_code" id="category_code" class="form-control">
+            <option value="">전체</option>
+            <option value="0">카테고리 1</option>
+            <option value="1">카테고리 2</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_name">채널 명</label>
+          <input
+            type="text"
+            class="form-control"
+            name="channel_name"
+            id="channel_name"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="user_limit">사용자 제한 수</label>
+          <input
+            type="text"
+            class="form-control"
+            name="user_limit"
+            id="user_limit"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_img_path"
+            >채널 이미지 경로</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="channel_img_path"
+            id="channel_img_path"
+          />
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="channel_desc">채널 설명</label>
+          <input
+            type="text"
+            class="form-control"
+            name="channel_desc"
+            id="channel_desc"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary">저장</button>
+    <button type="button" class="btn btn-danger" onclick="deleteData();">
+      삭제
+    </button>
+    <a href="/channel/list" class="btn btn-info">목록</a>
+  </div>
+</form>
+<script>
+  function deleteData() {
+    if (confirm("삭제하시겠습니까?")) {
+      location.href = "../delete/<%= channel.channel_id %>";
+    }
+  }
+
+  $("#channel_state_code").val("<%= channel.channel_state_code %>");
+  $("#category_code").val("<%= channel.category_code %>");
+  $("#channel_name").val("<%= channel.channel_name %>");
+  $("#user_limit").val("<%= channel.user_limit %>");
+  $("#channel_img_path").val("<%= channel.channel_img_path %>");
+  $("#channel_desc").val("<%= channel.channel_desc %>");
+</script>

@@ -1,0 +1,53 @@
+<ul id="iq-sidebar-toggle" class="iq-menu">
+    <li class="iq-menu-title">
+      <i class="ri-subtract-line"></i><span>Dashboard</span>
+    </li>
+
+    <li<% if (path=='index') {%> class="active"<%}%>>
+      <a href="/" class="iq-waves-effect"
+        ><i class="ri-home-7-line"></i><span>대시보드</span></a
+      >
+    </li>
+
+    <li class="iq-menu-title">
+      <i class="ri-subtract-line"></i><span>Accounts Management</span>
+    </li>
+
+    <li<% if (path=='admin') {%> class="active"<%}%>>
+      <a href="#adminmanage" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-admin-line"></i><span>관리자 계정</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+      <ul id="adminmanage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+         <li><a href="/admin/list"><i class="ri-profile-line"></i>관리자 계정 목록</a></li>
+         <li><a href="/admin/create"><i class="ri-file-edit-line"></i>관리자 계정 추가</a></li>
+      </ul>
+   </li>
+
+   <li<% if (path=='member') {%> class="active"<%}%>>
+      <a href="#membermanage" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-user-line"></i><span>사용자 계정</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+      <ul id="membermanage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+         <li><a href="/member/list"><i class="ri-profile-line"></i>사용자 계정 목록</a></li>
+         <li><a href="/member/create"><i class="ri-file-edit-line"></i>사용자 계정 추가</a></li>
+      </ul>
+   </li>
+
+    <li class="iq-menu-title">
+        <i class="ri-subtract-line"></i><span>Contents Management</span>
+    </li>
+
+   <li<% if (path=='article') {%> class="active"<%}%>>
+      <a href="#articlemanage" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-list-check"></i><span>게시글 정보</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
+      <ul id="articlemanage" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
+         <li><a href="/article/list"><i class="ri-profile-line"></i>게시글 목록</a></li>
+         <li><a href="/article/create"><i class="ri-file-edit-line"></i>게시글 추가 / 작성</a></li>
+      </ul>
+   </li>
+
+   <li class="iq-menu-title">
+        <i class="ri-subtract-line"></i><span>Messaging</span>
+    </li>
+
+    <li<% if (path=='chat') {%> class="active"<%}%>>
+      <a href="/" class="iq-waves-effect"
+        ><i class="ri-message-line"></i><span>메시지 관리</span></a
+      >
+    </li>
+  </ul>
