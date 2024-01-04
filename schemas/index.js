@@ -36,4 +36,10 @@ require("./member.js");
 //게시글 ODM모델 추가
 require("./article.js");
 
+//채널정보 콜렉션 모델을 참조합니다.
+require("./channel.js");
+
+//채널메시지 콜렉션 모델을 참조합니다.
+require("./channelMsg.js");
+
 module.exports = connect;

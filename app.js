@@ -15,8 +15,8 @@ var indexRouter = require("./routes/index");
 var memberRouter = require("./routes/member");
 
 //var articleRouter = require("./routes/article");
-//var channelRouter = require("./routes/channel");
-//var messageRouter = require("./routes/message");
+var channelRouter = require("./routes/channel");
+var messageRouter = require("./routes/message");
 
 var expressLayouts = require("express-ejs-layouts");
 const session = require("express-session"); //added packeages to use req.session variables
@@ -56,10 +56,11 @@ app.set("layout extractScripts", true);
 // 2023 - 12 - 12 Admin Webpage Integration Start
 
 //app.use("/admin", adminRouter);
-app.use("/member", memberRouter);
 //app.use("/article", articleRouter);
-//app.use("/channel", channelRouter);
-//app.use("/message", messageRouter);
+
+app.use("/member", memberRouter);
+app.use("/channel", channelRouter);
+app.use("/message", messageRouter);
 
 // 2023 - 12 - 12 Admin Webpage Integration End
 

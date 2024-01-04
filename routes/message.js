@@ -1,9 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-const db = require("../models/index");
-
-const { Op } = require("sequelize");
+const Channel = require("../schemas/channel"); //MongoDB Channel Schema
+const ChannelMsg = require("../schemas/channelMsg"); //MongoDB ChannelMsg Schema
 
 /* 
 channel_msg_id :: 채널 메시지 고유번호
@@ -22,9 +21,9 @@ del_date :: 메시지 삭제 일시
 */
 
 router.get("/list", async function (req, res, next) {
-  const channelList = await db.Channel.findAll();
+  const channelList = await Channel.find().sort("-reg_date");
 
-  let result = await db.ChannelMsg.findAll();
+  let result = await ChannelMsg.find().sort("-reg_date");
 
   console.log(result);
 
@@ -36,7 +35,7 @@ router.get("/list", async function (req, res, next) {
 });
 
 router.post("/list", async function (req, res, next) {
-  const channelList = await db.Channel.findAll();
+  const channelList = await Channel.find().sort("-reg_date");
 
   const schOption = {
     channel_id: req.body.channel_id,
@@ -48,29 +47,25 @@ router.post("/list", async function (req, res, next) {
   console.log(schOption);
 
   // LIKE Search
-  let result = await db.ChannelMsg;
+  let schClause = {};
 
-  where = {};
-
-  if (schOption.channel_id != "") {
-    where.channel_id = schOption.channel_id;
+  if (schOption.channel_id) {
+    schClause.channel_id = schOption.channel_id;
   }
 
-  if (schOption.msg_type_code != "") {
-    where.msg_type_code = schOption.msg_type_code;
+  if (schOption.msg_type_code) {
+    schClause.msg_type_code = schOption.msg_type_code;
   }
 
-  if (schOption.message != "") {
-    where.message = { [Op.like]: "%" + schOption.message + "%" };
+  if (schOption.message) {
+    schClause.message = { $regex: schOption.message, $options: "i" };
   }
 
-  if (schOption.ip_address != "") {
-    where.ip_address = { [Op.like]: "%" + schOption.ip_address + "%" };
+  if (schOption.ip_address) {
+    schClause.ip_address = { $regex: schOption.ip_address, $options: "i" };
   }
 
-  result = await db.ChannelMsg.findAll({
-    where: where,
-  });
+  let result = await ChannelMsg.find(schClause).sort("-reg_date");
 
   res.render("message/list", {
     channelList: channelList,
@@ -80,7 +75,7 @@ router.post("/list", async function (req, res, next) {
 });
 
 router.get("/create", async function (req, res, next) {
-  const channelList = await db.Channel.findAll();
+  const channelList = await Channel.find().sort("-reg_date");
 
   res.render("message/create", { channelList: channelList });
 });
@@ -100,50 +95,59 @@ router.post("/create", async function (req, res, next) {
     edit_date: new Date(),
   };
 
-  await db.ChannelMsg.create(createData);
+  await ChannelMsg.create(createData);
 
   res.redirect("/message/list");
 });
 
 router.get("/modify/:mid", async function (req, res, next) {
-  const channelList = await db.Channel.findAll();
+  try {
+    const channelList = await Channel.find().sort("-reg_date");
 
-  let result = await db.ChannelMsg.findOne({
-    where: { channel_msg_id: req.params.mid },
-  });
+    let result = await ChannelMsg.findOne({ _id: req.params.mid });
 
-  res.render("message/modify", { channelList, message: result });
+    res.render("message/modify", { channelList, message: result });
+  } catch (err) {
+    console.error(err);
+    res.redirect("/message/list");
+  }
 });
 
 router.post("/modify/:mid", async function (req, res, next) {
-  const modifiedData = {
-    channel_id: req.body.channel_id,
-    msg_type_code: req.body.msg_type_code,
-    nick_name: req.body.nick_name,
-    message: req.body.message,
-  };
+  try {
+    const modifiedData = {
+      channel_id: req.body.channel_id,
+      msg_type_code: req.body.msg_type_code,
+      nick_name: req.body.nick_name,
+      message: req.body.message,
+    };
 
-  const where = {
-    channel_msg_id: req.params.mid,
-  };
+    const where = {
+      _id: req.params.mid,
+    };
 
-  const message = await db.ChannelMsg.findOne({ where: where });
+    await ChannelMsg.updateOne(where, modifiedData);
 
-  message.update(modifiedData);
-
-  res.redirect("/message/list");
+    res.redirect("/message/list");
+  } catch (err) {
+    console.error(err);
+    res.send("Error!");
+  }
 });
 
 router.get("/delete/:mid", async function (req, res, next) {
-  const where = {
-    channel_msg_id: req.params.mid,
-  };
+  try {
+    const where = {
+      _id: req.params.mid,
+    };
 
-  const message = await db.ChannelMsg.findOne({ where: where });
+    await ChannelMsg.deleteOne(where);
 
-  message.destroy();
-
-  res.redirect("/message/list");
+    res.redirect("/message/list");
+  } catch (err) {
+    console.error(err);
+    res.redirect("/message/list");
+  }
 });
 
 module.exports = router;

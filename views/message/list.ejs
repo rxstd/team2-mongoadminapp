@@ -114,10 +114,10 @@
                   <% } %>
                 </td>
                 <td>
-                  <a href="/channel/modify/<%=messageList[i].channel_id%>"><%= channelList.find(x => x.channel_id === messageList[i].channel_id).channel_name %></a>
+                  <a href="/channel/modify/<%= channelList.find(x => x.channel_id === messageList[i].channel_id)._id %>"><%= channelList.find(x => x.channel_id === messageList[i].channel_id).channel_name %></a>
                 </td>
                 <td><%= messageList[i].nick_name %></td>
-                <td><a href="/message/modify/<%=messageList[i].channel_msg_id%>"><%= messageList[i].message %></a></td>
+                <td><a href="/message/modify/<%=messageList[i]._id%>"><%= messageList[i].message %></a></td>
                 <td><%= messageList[i].ip_address %></td>
                 <td><%= messageList[i].msg_date.toLocaleString() %></td>
 
